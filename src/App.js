@@ -1,25 +1,47 @@
-import logo from './logo.svg';
-import './App.css';
+/** App.js */
+import React from "react";
+import MultilineChart from "./views/MultilineChart";
+import schc from "./SCHC.json";
+import vcit from "./VCIT.json";
+import portfolio from "./portfolio.json";
+import "./styles.css";
+import BarGraph from "./views/BarGraph/BarGraph";
 
-function App() {
+const portfolioData = {
+  name: "Portfolio",
+  color: "#ffffff",
+  items: portfolio.map((d) => ({ ...d, date: new Date(d.date) }))
+};
+const schcData = {
+  name: "SCHC",
+  color: "#d53e4f",
+  items: schc.map((d) => ({ ...d, date: new Date(d.date) }))
+};
+const vcitData = {
+  name: "VCIT",
+  color: "#5e4fa2",
+  items: vcit.map((d) => ({ ...d, date: new Date(d.date) }))
+};
+
+const dimensions = {
+  width: 600,
+  height: 300,
+  margin: {
+    top: 30,
+    right: 30,
+    bottom: 30,
+    left: 60
+  }
+};
+
+export default function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <MultilineChart
+        data={[portfolioData, schcData, vcitData]}
+        dimensions={dimensions}
+      />
+      <BarGraph data={[10,20,30,40,50]} />
     </div>
   );
 }
-
-export default App;
